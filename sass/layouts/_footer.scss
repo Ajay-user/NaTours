@@ -1,0 +1,90 @@
+.footer {
+  background-color: $color-grey-dark-deep;
+  padding: 10rem 0;
+  font-size: 1.4rem;
+
+  // media queries
+  @include respond(tab-land) {
+    padding: 8rem 5rem;
+  }
+  // media queries
+  @include respond(tab-port) {
+    padding: 8rem 0;
+  }
+
+  &__logo-box {
+    text-align: center;
+    margin-bottom: 8rem;
+    @include respond(tab-port) {
+      margin-bottom: 6rem;
+    }
+  }
+
+  &__logo {
+    width: 15rem;
+    height: auto;
+  }
+
+  //   footer navigation
+  &__navigation {
+    border-top: 1px solid $color-grey-dark;
+    padding-top: 2rem;
+    // we dont want the border to extend past the content
+    display: inline-block;
+
+    // media queries
+    @include respond(tab-port) {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  //   ul
+  &__list {
+    list-style: none;
+  }
+  //   li
+  &__item {
+    display: inline-block;
+
+    &:not(:last-child) {
+      margin-right: 1.5rem;
+    }
+  }
+  // a
+  &__link {
+    &:link,
+    &:visited {
+      text-decoration: none;
+      display: inline-block;
+      color: $color-grey-light-1;
+      text-transform: uppercase;
+      transition: all 0.2s;
+
+      &:hover,
+      &:active {
+        color: $color-primary;
+        // background color same as the layout
+        background-color: $color-grey-dark-deep;
+        box-shadow: 0 1rem 2rem rgba($color-black, 0.4);
+        transform: rotate(5deg) scale(1.1);
+      }
+    }
+  }
+
+  &__copyright {
+    color: $color-grey-light-1;
+    border-top: 1px solid $color-grey-dark;
+    padding-top: 2rem;
+    // to make it symmetric
+    width: 80%;
+    float: right;
+
+    // media queries
+    @include respond(tab-port) {
+      width: 100%;
+      float: none;
+      text-align: center;
+    }
+  }
+}

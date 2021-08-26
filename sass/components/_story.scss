@@ -1,0 +1,125 @@
+.story {
+  width: 75%;
+  margin: 0 auto;
+  box-shadow: 0 3rem 6rem rgba($color-black, 0.15);
+  background-color: rgba($color-white, 0.6);
+  border-radius: 5px;
+  padding: 6rem;
+  // to compensate for the translateX : 3rem
+  padding-left: 9rem;
+  font-size: $default-fontsize;
+  transform: skewX(-12deg);
+
+  // media query
+  @include respond(tab-port) {
+    width: 100%;
+    padding: 4rem;
+    // to compensate for the translateX : 3rem
+    padding-left: 7rem;
+  }
+
+  // media query
+  @include respond(phone) {
+    transform: skewX(0deg);
+    padding-left: 4rem;
+  }
+
+  &__shape {
+    height: 15rem;
+    width: 15rem;
+    background-color: lightblue;
+    float: left;
+    // to make text wrap around the figure image
+    -webkit-shape-outside: circle(50% at 50% 50%);
+    shape-outside: circle(50% at 50% 50%);
+    // to make the figure a circle use clip path
+    -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+    // to create some space btw text and figure
+    transform: translateX(-3rem) skewX(12deg);
+    // to prevent jittering of image when hovering over story
+    overflow: hidden;
+    position: relative;
+    // to remove the glitches with transform
+    // backface-visibility: hidden;
+
+    // media query
+    @include respond(phone) {
+      width: 20rem;
+      border-radius: 5px;
+      margin: 0 auto;
+      float: none;
+
+      transform: translateX(0) skewX(0deg);
+
+      -webkit-clip-path: none;
+      clip-path: none;
+      // to remove the glitches with transform
+      backface-visibility: hidden;
+    }
+  }
+
+  &__image {
+    height: 100%;
+    transform: translateX(-4rem) scale(1.5);
+    transition: all 0.5s;
+    // to remove the glitches with transform
+    // backface-visibility: hidden;
+
+    // media query
+    @include respond(phone) {
+      transform: translateX(0) scale(1.5);
+    }
+  }
+
+  &__text {
+    transform: skewX(12deg);
+    // media query
+    @include respond(phone) {
+      transform: skewX(0deg);
+    }
+  }
+
+  &__caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 20%);
+    font-size: 1.7rem;
+    color: $color-white;
+    text-align: center;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: all 0.5s;
+    // to remove the glitches with transform
+    backface-visibility: hidden;
+  }
+
+  // when hovering over the story target the caption
+  &:hover &__caption {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+
+  // when hovering over the story target the image
+  &:hover &__image {
+    transform: translateX(-4rem) scale(1);
+    filter: blur(3px) brightness(80%);
+
+    // media query
+    @include respond(phone) {
+      transform: translateX(0) scale(1);
+    }
+  }
+}
+
+// media query
+// samll screen - galaxy fold - chrome devtools
+@media only screen and (max-width: 280px) {
+  .story {
+    &__shape {
+      height: 15rem;
+      width: 15rem;
+    }
+  }
+}

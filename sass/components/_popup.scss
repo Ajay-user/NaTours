@@ -1,0 +1,236 @@
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba($color-black, 0.8);
+  z-index: 250;
+  // animation
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+
+  // browser support
+  // we can add backdrop-filter to apply a filter to what is behind the selected element
+  // let's chek for browser support because this is a new feature and not all browser support this
+  @supports (-webkit-backdrop-filter: blur(10px)) or
+    (backdrop-filter: blur(10px)) {
+    // here we can write the new features
+    // if browser supports them it will be applied
+
+    backdrop-filter: blur(10px);
+    background-color: rgba($color-black, 0.3);
+  }
+
+  &__content {
+    width: 75vw;
+    background-color: $color-white;
+    box-shadow: 0 2rem 4rem rgba($color-black, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+
+    display: table;
+
+    // position it -- center
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    // we want it centered as well as scaled down for animation
+    transform: translate(-50%, -50%) scale(0.25);
+    transition: all 0.4s 0.1s;
+  }
+
+  // left
+  &__left {
+    width: 33.33333%;
+    display: table-cell;
+  }
+
+  // right
+  &__right {
+    width: 66.66666%;
+    display: table-cell;
+    vertical-align: middle;
+    padding: 3rem 5rem;
+  }
+
+  // image
+  &__image {
+    width: 100%;
+    display: block;
+  }
+
+  // text
+  &__text {
+    font-size: 1.4rem;
+    margin-bottom: 4rem;
+
+    -moz-column-count: 2;
+    // by default the col-gap = 1em which is 14px (em = factor of current elems fontsize)
+    -moz-column-gap: 4rem;
+    -moz-column-rule: 1px solid $color-grey-light-2;
+
+    column-count: 2;
+    // by default the col-gap = 1em which is 14px (em = factor of current elems fontsize)
+    column-gap: 4rem;
+    column-rule: 1px solid $color-grey-light-2;
+    // hyphen set to manual is of no use , if set we've to manually set the HTML
+    // auto will put hypens automatically but for it to work we must specify the document language<html lang='en'>
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  // Animation
+
+  // when url changes target becomes popup
+  // The :target selector can be used to style the current active target element.
+  // URLs with an # followed by an anchor name link to a certain element within a document.
+  // The element being linked to is the target element.
+  &:target {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &:target &__content {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  &__close {
+    &:link,
+    &:visited {
+      position: absolute;
+      border: none;
+      top: 2.5rem;
+      right: 2.5rem;
+
+      color: salmon;
+      text-decoration: none;
+      font-size: 3rem;
+      transition: all 0.2s;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+////////////////////////////////////// media query///////////////////////////////////////////
+
+@include respond(tab-land) {
+  .popup {
+    &__content {
+      overflow: hidden;
+      display: block;
+    }
+
+    // left
+    &__left {
+      width: 100%;
+      height: 20rem;
+      display: block;
+      overflow: hidden;
+    }
+
+    // right
+    &__right {
+      width: 100%;
+      display: block;
+
+      padding: 3rem 5rem;
+    }
+
+    // image
+    &__image {
+      width: 49%;
+      height: auto;
+      display: inline-block;
+      background-size: cover;
+      transform: translateY(-4rem) scale(1.35);
+      transition: all 10s;
+      background-position: center;
+
+      &-1 {
+        clip-path: polygon(0 0, 100% 0, 80% 100%, 0 100%);
+      }
+      &-2 {
+        clip-path: polygon(20% 0, 100% 0, 100% 100%, 0 100%);
+      }
+
+      &:hover {
+        transform: scale(1.27);
+        transition: transform 20s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+      }
+    }
+
+    // close icon
+    &__close {
+      &:link,
+      &:visited {
+        position: unset;
+        height: 5.5rem;
+        width: 5.5rem;
+        border-radius: 50%;
+        border: 2px solid red;
+        text-align: center;
+        float: right;
+      }
+    }
+  }
+}
+
+// media query
+
+@include respond(phone) {
+  .popup {
+    // left
+    &__left {
+      width: 100%;
+      height: 10rem;
+      display: block;
+      overflow: hidden;
+    }
+
+    // right
+    &__right {
+      width: 100%;
+      display: block;
+
+      padding: 2rem 3rem;
+    }
+
+    // text
+    &__text {
+      font-size: 1.4rem;
+      margin-bottom: 4rem;
+
+      -moz-column-count: 1;
+      column-count: 1;
+    }
+  }
+}
+
+// media query
+// samll screen - galaxy fold - chrome devtools
+@media only screen and (max-width: 280px) {
+  .popup {
+    // left
+    &__left {
+      display: none;
+    }
+
+    &__close {
+      &:link,
+      &:visited {
+        float: none;
+        position: absolute;
+        border: none;
+        top: 0;
+        right: 0;
+      }
+    }
+  }
+}

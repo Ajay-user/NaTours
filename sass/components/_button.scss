@@ -1,0 +1,104 @@
+.btn {
+  /* discover tours button */
+  /* link is a pseudo class - a special state of the selector */
+  /* visited is a pseudo class - user clicked the btn before  */
+  &,
+  &:link,
+  &:visited {
+    display: inline-block;
+    padding: 1.5rem 4rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 10rem;
+    transition: all 0.2s;
+    position: relative;
+    font-size: $default-fontsize;
+
+    // for button elements
+    // button-elem does not have link, visited pseudo class so  &, will take care of it
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover {
+    transform: translateY(-0.3rem);
+    box-shadow: 0 2rem 1rem rgba(0, 0, 0, 0.2);
+
+    &::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0;
+    }
+  }
+
+  /* when we click -- state : active */
+  /* when we focus -- state : focus */
+  &:active,
+  &:focus {
+    outline: none;
+    transform: translateY(-0.1rem);
+    box-shadow: 0 1rem 0.5rem rgba(0, 0, 0, 0.2);
+  }
+
+  &--white {
+    background-color: $color-white;
+    color: $color-grey-dark;
+
+    &::after {
+      background-color: $color-white;
+    }
+  }
+
+  &--green {
+    background-color: $color-primary;
+    color: $color-white;
+
+    &::after {
+      background-color: $color-primary;
+    }
+  }
+
+  /* button animation */
+  &::after {
+    content: ""; /* must */
+    display: inline-block; /* must */
+    height: 100%; /* after pseudo class will treat this(elem) as child of btn(parent) */
+    width: 100%;
+    border-radius: 10rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s;
+  }
+
+  &--animate {
+    animation: moveInBottom 0.5s ease-out 0.75s;
+    animation-fill-mode: backwards;
+    /* backwards fillmode apply the animation at 0% before animation start */
+  }
+}
+
+.btn-text {
+  &:link,
+  &:visited {
+    font-size: $default-fontsize;
+    text-decoration: none;
+    color: $color-primary;
+    border-bottom: 0.1rem solid $color-primary;
+    padding: 0.3rem;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-white;
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.15);
+    transform: translateY(-0.2rem);
+  }
+
+  &:active {
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.15);
+    transform: translateY(0);
+  }
+}

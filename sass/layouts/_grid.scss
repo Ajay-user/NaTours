@@ -1,0 +1,80 @@
+.row {
+  max-width: $grid-width;
+  //   background-color: #eee;
+  margin: 0 auto;
+
+  // media queries
+  @include respond(tab-port) {
+    // we over-write the width
+    width: 70rem;
+    padding: 0 3rem;
+  }
+
+  // media queries
+  @include respond(phone) {
+    // we over-write the width
+    width: 90vw;
+    padding: 0 3rem;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: $gutter-vertical;
+    // media queries
+    @include respond(tab-port) {
+      // reduce the vertical gutters
+      margin-bottom: $gutter-vertical-small;
+    }
+  }
+
+  //   clear fix
+  @include clearfix;
+
+  //   attribute selector
+  // select all column starting with 'col-'
+  [class^="col-"] {
+    float: left;
+    // background-color: salmon;
+
+    &:not(:last-child) {
+      margin-right: $gutter-horizontal;
+      // media queries
+      @include respond(tab-port) {
+        // we dont want horizontal gutters
+        margin-right: 0;
+        // let's add a vertical gutter for column
+        margin-bottom: $gutter-vertical-small;
+      }
+    }
+
+    // media queries
+    @include respond(tab-port) {
+      // we over-write the width of column to fill the row width
+      width: 100% !important;
+    }
+  }
+
+  .col-1-of-2 {
+    width: calc((100% - #{$gutter-horizontal}) / 2);
+  }
+  .col-1-of-3 {
+    width: calc((100% - 2 * #{$gutter-horizontal}) / 3);
+  }
+  .col-2-of-3 {
+    width: calc(
+      2 * ((100% - 2 * #{$gutter-horizontal}) / 3) + #{$gutter-horizontal}
+    );
+  }
+  .col-1-of-4 {
+    width: calc((100% - 3 * #{$gutter-horizontal}) / 4);
+  }
+  .col-2-of-4 {
+    width: calc(
+      2 * ((100% - 3 * #{$gutter-horizontal}) / 4) + #{$gutter-horizontal}
+    );
+  }
+  .col-3-of-4 {
+    width: calc(
+      3 * ((100% - 3 * #{$gutter-horizontal}) / 4) + 2 * #{$gutter-horizontal}
+    );
+  }
+}

@@ -1,0 +1,123 @@
+.form {
+  &__group:not(:last-child) {
+    margin-bottom: 2rem;
+  }
+
+  &__input {
+    // its asthetically good to give more padding to the left&right
+    padding: 1.5rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    color: inherit;
+    font-family: inherit;
+    background-color: rgba($color-white, 0.5);
+    // this margin-bottom is to compensate for the outline 3px
+    border-bottom: 3px solid transparent;
+    display: block;
+    width: 90%;
+    transition: all 0.3s;
+
+    // media query
+    @include respond(tab-port) {
+      width: 100%;
+    }
+
+    // never finish by setting outline:none alone
+    // for keyboard - navigation , when active set some nice active styles
+    // -- set a shadow
+    // -- margin - bottom
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1.5rem 2rem rgba($color-black, 0.1);
+      border-bottom: 3px solid $color-primary-light;
+    }
+    &:focus:invalid {
+      border-bottom: 3px solid $color-secondary-dark;
+    }
+
+    &::-webkit-input-placeholder {
+      color: $color-grey-dark-plus;
+    }
+  }
+
+  // when placeholder is shown target the label
+  //   if placeholder is visible it implies no content and we dont want the label to be shown
+  &__input:placeholder-shown + &__label {
+    //   setting visibility:hidden will remove the element then why opacity
+    //   we want opacity to add animation
+    opacity: 0;
+    // visibility hidden will hides the elem but still it takes up space in the layout
+    visibility: hidden;
+    // as soon we type -- placeholder will be gone an label shows up
+    // set initial position of label
+    transform: translateY(-4rem);
+    // these styles will be gone with placeholder and lable will move to its position
+  }
+
+  &__label {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-left: 2rem;
+    margin-top: 0.7rem;
+    display: block;
+    transition: all 0.3s;
+  }
+
+  // radio inputs
+  &__radio-group {
+    // we want radio btns in a line
+    width: 49%;
+    display: inline-block;
+
+    // media query
+    @include respond(tab-port) {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+  }
+  // radio inputs can't be styles so we hide it
+  &__radio-input {
+    // display none will remove the elem -- elem will be hidden and does not take up space
+    // it'll be hidden and page will be displayed as if the elem was not there
+    display: none;
+  }
+
+  &__radio-label {
+    font-size: $default-fontsize;
+    padding-left: 4rem;
+    position: relative;
+    cursor: pointer;
+  }
+  &__radio-button {
+    width: 3rem;
+    height: 3rem;
+    display: inline-block;
+    border-radius: 50%;
+    border: 5px solid $color-primary;
+    position: absolute;
+    left: 0;
+    top: -0.4rem;
+
+    &::after {
+      content: "";
+      display: inline-block;
+      width: 1.3rem;
+      height: 1.3rem;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: $color-primary;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+  }
+
+  // radio btn selection -- when radio-input is checked
+  &__radio-input:checked ~ &__radio-label &__radio-button::after {
+    opacity: 1;
+  }
+}

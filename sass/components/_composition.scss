@@ -1,0 +1,73 @@
+.composition {
+  position: relative;
+
+  &__photo {
+    width: 55%;
+    border-radius: 2px;
+    box-shadow: 0 1.5rem 4rem rgba($color-black, 0.4);
+    position: absolute;
+    z-index: 10;
+    transition: all 0.2s;
+    // outline offset
+    outline-offset: 2rem;
+
+    // media query
+    @include respond(tab-port) {
+      border-radius: 5px;
+      // we want photos side by side so lets float them
+      float: left;
+      // for float to work , we've to set position:relative because we've positioned them absolute
+      position: relative;
+      width: 33.33333%;
+      box-shadow: 0 1.5rem 3rem rgba($color-black, 0.2);
+    }
+
+    &--p1 {
+      top: -2rem;
+      left: 0;
+      // media query
+      @include respond(tab-port) {
+        top: 0;
+        transform: scale(1.2) translateY(1rem);
+      }
+    }
+    &--p2 {
+      top: 2rem;
+      right: 0;
+      // media query
+      @include respond(tab-port) {
+        top: 0;
+        transform: scale(1.4) translateY(-1rem);
+        z-index: 50;
+      }
+    }
+    &--p3 {
+      top: 10rem;
+      left: 20%;
+      // media query
+      @include respond(tab-port) {
+        top: 0;
+        left: 0;
+        transform: scale(1.2) translateY(1rem);
+      }
+    }
+
+    &:hover {
+      outline: 1.5rem solid $color-primary;
+      box-shadow: 0 2.5rem 4rem rgba($color-black, 0.5);
+      transform: scale(1.05) translateY(0.5rem);
+      z-index: 20;
+      // media query
+      @include respond(tab-port) {
+        z-index: 60;
+        transform: scale(1.2) translateY(0.5rem);
+      }
+    }
+  }
+
+  //   when we hover the composition div
+  //   select the composition__photo that is not hovered
+  &:hover &__photo:not(:hover) {
+    transform: scale(0.95);
+  }
+}

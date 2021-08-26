@@ -1,0 +1,44 @@
+/* universal selector */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+/* root */
+html {
+  /* 16px is browser default */
+  /* 100% = 16px ,   62.5% =10px */
+  // here we are setting what 1rem is
+  font-size: 62.5%;
+
+  // media queries
+  @include respond(tab-land) {
+    font-size: 56.25%;
+  }
+  @include respond(tab-port) {
+    font-size: 50%;
+  }
+  @include respond(big-desktop) {
+    font-size: 75%;
+  }
+}
+
+/* inherited by child-elements */
+body {
+  /* padding is not inherited , it just applies to the body */
+  padding: 3rem;
+  box-sizing: border-box;
+
+  @include respond(tab-land) {
+    padding: 0;
+  }
+}
+
+// whenever user selects text we can set personalized styles for the selection
+::selection {
+  background-color: $color-primary;
+  color: $color-white;
+}

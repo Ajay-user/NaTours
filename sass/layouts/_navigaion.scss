@@ -1,0 +1,203 @@
+.navigation {
+  // checkbox
+  &__checkbox {
+    //   we don't want a checkbox displayed
+    display: none;
+  }
+
+  // label -- button
+  &__button {
+    width: 7rem;
+    height: 7rem;
+    border-radius: 50%;
+    display: inline-block;
+    position: fixed;
+    top: 6rem;
+    right: 6rem;
+    background-color: $color-white;
+    box-shadow: 0 1rem 3rem rgba($color-black, 0.1);
+    text-align: center;
+    z-index: 200;
+
+    // media queries
+    @include respond(tab-port) {
+      top: 4rem;
+      right: 4rem;
+    }
+    // media queries
+    @include respond(phone) {
+      top: 3rem;
+      right: 3rem;
+    }
+  }
+  // background
+  &__background {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    display: inline-block;
+    position: fixed;
+    top: 6.5rem;
+    right: 6.5rem;
+    // radial-gradient -- start from center and move out to all sides
+    background-image: radial-gradient(
+      $color-primary-light,
+      $color-primary-dark
+    );
+    z-index: 100;
+    // we want to animate this background
+    // scale it --- make it a big circle
+    // transform: scale(90);
+
+    transition: transform 0.8s cubic-bezier(0.83, 0, 0.17, 1);
+
+    // media queries
+    @include respond(tab-port) {
+      top: 4.5rem;
+      right: 4.5rem;
+    }
+    // media queries
+    @include respond(phone) {
+      top: 3.5rem;
+      right: 3.5rem;
+    }
+  }
+
+  //   nav
+  &__nav {
+    height: 100vh;
+    // we want to animate the nav
+    // on click the width becomes 100% & opacity : 1
+    visibility: hidden;
+    opacity: 0;
+    width: 0%;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 150;
+
+    transition: all 0.8s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+  }
+
+  // ul -- list
+  &__list {
+    width: 100%;
+    list-style: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  // li -- item
+  &__item {
+    margin: 1rem;
+  }
+
+  // a  -- link
+  &__link {
+    &:link,
+    &:visited {
+      display: inline-block;
+      font-size: 3rem;
+      font-weight: 300;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: $color-white;
+      background-image: linear-gradient(
+        120deg,
+        transparent 0%,
+        transparent 50%,
+        $color-white 50%
+      );
+      background-size: 220%;
+      border-radius: 5px;
+      transition: all 0.4s;
+
+      // span element inside the link
+      span {
+        display: inline-block;
+        margin-right: 1.5rem;
+      }
+    }
+    &:hover,
+    &:active {
+      background-position: 100%;
+      color: $color-primary;
+      transform: translateX(1rem);
+    }
+  }
+
+  // animation - target background when checkbox is checked
+  &__checkbox:checked ~ &__background {
+    transform: scale(90);
+  }
+  // animation - target nav when checkbox is checked
+  &__checkbox:checked ~ &__nav {
+    visibility: visible;
+    opacity: 1;
+    width: 100%;
+  }
+
+  // icon styles
+
+  &__icon {
+    position: relative;
+    margin-top: 3.5rem;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      transition: all 0.2s;
+    }
+
+    &::before {
+      top: -0.8rem;
+    }
+    &::after {
+      top: 0.8rem;
+    }
+
+    &,
+    &::before,
+    &::after {
+      width: 3rem;
+      height: 2px;
+      display: inline-block;
+      background-color: $color-grey-dark-plus;
+    }
+  }
+
+  // while hovering the navigation label (&__button)
+  // we target the before & after pseudo class
+  &__button:hover &__icon::before {
+    top: -1rem;
+  }
+  &__button:hover &__icon::after {
+    top: 1rem;
+  }
+
+  // when check box is clicked
+  // target icon -- span elem  and make it disappear
+  &__checkbox:checked + &__button &__icon {
+    // setting opacity to 0 , display:none or visibility:hidden
+    // will affect the pseudo class as well
+    // we only want the middle line to disapper so just setting background-color: transparent; will do the job
+    background-color: transparent;
+  }
+  // when checkbox is checked we want to form a cross
+  &__checkbox:checked + &__button &__icon::before {
+    // we have to set the top position to zero , becoz its absoluted positioned
+    top: 0;
+    transform: rotate(135deg);
+  }
+  &__checkbox:checked + &__button &__icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+  }
+}
