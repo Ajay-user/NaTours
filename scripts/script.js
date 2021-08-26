@@ -14,6 +14,6 @@ const popup = document.getElementById("popup");
 const closePopup = () => {
   // The window.location object can be used to get the current page address (URL)
   // and to redirect the browser to a new page.
-  window.location.assign("https://ajay-user.github.io/NaTours/#section-tours");
+  window.location.href = "https://ajay-user.github.io/NaTours/#section-tours";
 };
 popup.addEventListener("click", closePopup);
